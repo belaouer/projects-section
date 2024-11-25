@@ -1,5 +1,8 @@
+"use client";
+import { useEffect, useState } from "react";
 import Card from "./Card";
 import Section from "./Section";
+import { useAnimate, motion } from "framer-motion";
 
 const projects = [
   {
@@ -45,16 +48,25 @@ const projects = [
 ];
 
 const Projects = () => {
+  const [change, setChange] = useState(0);
+  const [scope, animate] = useAnimate();
+
+  useEffect(() => {
+    animate(scope.current, { top: `-${100 * change}%` });
+  }, [change]);
   return (
     <Section
       title="selected works / (5)"
       section="projects"
       description="Featured projects that have been meticulously crafted with passion to drive results and impact. "
     >
-      <div className="hidden md:flex md:col-span-5  text-[22vw] text-[#a29e9a] font-mono md:w-full md:h-fit  md:leading-none">
+      <div className="hidden md:flex md:col-span-5  text-[22vw] text-[#a29e9a] font-mono md:w-full md:h-fit  md:leading-none overflow-hidden md:sticky md:top-0">
         <span className="">0</span>
         <div className="relative">
-          <div className="absolute flex flex-col justify-start">
+          <motion.div
+            ref={scope}
+            className="absolute flex flex-col justify-start "
+          >
             <span className="relative inline-block after:content-['.'] after:absolute after:-right-[0.35em] after:top-0 ">
               1
             </span>
@@ -70,7 +82,7 @@ const Projects = () => {
             <span className="relative inline-block after:content-['.'] after:absolute after:-right-[0.35em] after:top-0">
               5
             </span>
-          </div>
+          </motion.div>
         </div>
       </div>
       <div className="col-span-12  md:col-span-7 flex flex-col  gap-y-space2xl">
@@ -83,6 +95,8 @@ const Projects = () => {
               img={img}
               key={id}
               year={year}
+              setChange={setChange}
+              id={id}
             />
           );
         })}

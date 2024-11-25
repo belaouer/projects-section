@@ -21,7 +21,9 @@ const Section = ({ title, section, description, children }: SectionProps) => {
           </div>
         </div>
       </div>
-      <div className="pt-spaceLg w-full grid grid-cols-12  md:gap-x-16 gap-x-fluidGap">{children}</div>
+      <div className="pt-spaceLg w-full grid grid-cols-12  gap-x-fluidGap">
+        {children}
+      </div>
     </section>
   );
 };
